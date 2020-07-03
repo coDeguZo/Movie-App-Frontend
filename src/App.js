@@ -1,22 +1,35 @@
 import React, {useState, useEffect} from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
 import logo from './logo.svg';
-import './App.css';
 import randomcolor from 'randomcolor'
 
-
-function App() {
-  const [color, setColor] = useState(randomcolor)
-
-  const colorChange = () => {
-    setColor(randomcolor)
+class App extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      movies: []
+    }
   }
 
-  return (
-    <div className="App">
-      <h1 style={{color: color}}> Movie App In The Making</h1>
-      <button onClick={colorChange}>Click Me!</button>
-    </div>
-  );
+  componentDidMount(){
+    fetch("http://localhost:3000/movies")
+    .then(resp => resp.json())
+    .then(data => this.setState({movies: data}))
+  }
+
+
+  render(){
+    return(
+      <div>
+        <h1> Movie Application </h1>
+      </div>
+    )
+  }
 }
 
 export default App;
